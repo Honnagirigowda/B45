@@ -13,7 +13,7 @@ import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.remote.DesiredCapabilities;
 import org.openqa.selenium.remote.RemoteWebDriver;
 import org.openqa.selenium.support.ui.WebDriverWait;
-import org.testng.ITestResult;
+import org.testng.ITestResult; 
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.AfterSuite;
 import org.testng.annotations.BeforeMethod;
@@ -118,6 +118,7 @@ public class BaseTest implements IAutoConst{
 		String testName=result.getName();
 		int testStatus= result.getStatus();
 		
+		
 		if(testStatus==1)
 		{
 			extentTest.log(Status.PASS, testName+" is pass");
@@ -136,7 +137,8 @@ public class BaseTest implements IAutoConst{
 					extentTest.log(Status.FAIL, e.getMessage());
 			}
 			extentTest.addScreenCaptureFromPath(SCREENSHOT_FOLDER_FOR_REPORT+testName+IMAGE_FORMAT);
-			extentTest.log(Status.FAIL, testName+" test is Failed");
+			String msg=result.getThrowable().getMessage();
+			extentTest.log(Status.FAIL, msg);
 		}
 		
 		extentTest.log(Status.INFO, "Close the browser");
